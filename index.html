@@ -11,25 +11,34 @@
     <header>
       <div class="header-content">
         <img src="https://cegeogtech.unimap.edu.my/wp-content/uploads/2020/08/logo-unimap.png" alt="UniMAP Logo" class="logo-left">
-        <h1>Unimap Student Lounge Booking - IRC</h1>
+        <h1 id="page-title">Unimap Student Lounge Booking - IRC</h1>
         <img src="IRC.png" alt="IRC Logo" class="logo-right">
       </div>
       <div id="clock"></div>
+
+      <!-- Language Switcher -->
+      <div class="language-switcher">
+        <span class="lang-label">EN</span>
+        <label class="switch">
+          <input type="checkbox" id="langToggle" onchange="toggleLanguage()">
+          <span class="slider round"></span>
+        </label>
+        <span class="lang-label">MS</span>
+      </div>
     </header>
 
     <div class="right-side">
       <div class="instructions">
-        <h3> Important Instructions:</h3>
-        <p>1. Booking must be made at least <b>3 hours before</b> the requested time.</p>
-        <p>2️. To collect the keys, please contact:</p>
+        <h3 id="instructions-title">Important Instructions:</h3>
+        <p id="instruction-1">1. Booking must be made at least <b>3 hours before</b> the requested time.</p>
+        <p id="instruction-2">2️. To collect the keys, please contact:</p>
         <table>
           <thead>
             <tr>
-              <th>Role</th>
-              <th>Name</th>
-              <th>Room</th>
-              <th>Contact</th>
-             
+              <th id="th-role">  Role  </th>
+              <th id="th-name">  Name  </th>
+              <th id="th-room">  Room  </th>
+              <th id="th-contact">  Contact  </th>
             </tr>
           </thead>
           <tbody>
@@ -48,7 +57,6 @@
               <td><strong>Ashraf Obad</strong></td>
               <td><strong>A-2-6-1</strong></td>
               <td>
-                 
                 <a href="https://wa.me/qr/F3JO5UZXEQTTL1" class="wa-link" target="_blank" rel="noopener">
                   <img src="whatsupicon.jpg" alt="WhatsApp" class="whatsapp-icon">
                 </a>
@@ -59,28 +67,28 @@
       </div>
 
       <div class="container yellow-frame">
-        <h2>Booking Form</h2>
+        <h2 id="form-title">Booking Form</h2>
         <form id="bookingForm"
               action="https://docs.google.com/forms/u/1/d/e/1FAIpQLSdYCBBhfj_7Oa2xU17ADcriFkRJxup2repxSobJfzydTJ6HNw/formResponse"
               method="POST"
               target="hidden_iframe"
               onsubmit="return handleSubmit();">
-          <label for="name">Name:</label>
+          <label for="name" id="label-name">Name:</label>
           <input class="input" type="text" id="name" name="entry.197220575" required>
 
-          <label for="matric">Matric Number:</label>
+          <label for="matric" id="label-matric">Matric Number:</label>
           <input class="input" type="text" id="matric" name="entry.1009552916" required>
 
-          <label for="phone">Phone Number:</label>
+          <label for="phone" id="label-phone">Phone Number:</label>
           <input class="input" type="tel" id="phone" name="entry.1592941642" required>
 
-          <label for="from">Booking From (Day & Time):</label>
+          <label for="from" id="label-from">Booking From (Day & Time):</label>
           <input class="input" type="datetime-local" id="from" name="entry.441085941" required>
 
-          <label for="to">Booking To (Day & Time):</label>
+          <label for="to" id="label-to">Booking To (Day & Time):</label>
           <input class="input" type="datetime-local" id="to" name="entry.631650623" required>
 
-          <button type="submit" class="yellow-button">Submit Booking</button>
+          <button type="submit" class="yellow-button" id="submit-button">Submit Booking</button>
         </form>
         <div id="successMessage" class="success-message">
           ✅ Your booking has been submitted successfully!
@@ -91,49 +99,6 @@
 
   <iframe name="hidden_iframe" style="display:none;"></iframe>
 
-  <script>
-    // Live Clock
-    function updateClock() {
-      const el = document.getElementById("clock");
-      if (!el) return;
-      const now = new Date();
-      const opts = {
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
-      };
-      el.textContent = now.toLocaleString('en-GB', opts);
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Form validation
-    function handleSubmit() {
-      const start = new Date(document.getElementById("from").value);
-      const end = new Date(document.getElementById("to").value);
-      const now = new Date();
-
-      if (end <= start) {
-        alert("'Booking To' must be after 'Booking From'.");
-        return false;
-      }
-
-      const diff = (start - now) / (1000*60*60);
-      if (diff < 3) {
-        alert("⚠️ Book at least 3 hours before the requested time.");
-        return false;
-      }
-
-      setTimeout(() => {
-        document.getElementById("bookingForm").reset();
-        document.getElementById("successMessage").style.display = "block";
-        setTimeout(() => {
-          document.getElementById("successMessage").style.display = "none";
-        }, 5000);
-      }, 800);
-
-      return true;
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
-
